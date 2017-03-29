@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:34:49 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 00:27:27 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 00:53:27 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,8 @@ int				main(int ac, char **av)
 		}
 		select->list = list;
 		select->pos = 0;
-		if (!config(select))
-			ft_printf(2, "ft_select: terminal configuration error\n");
-		run(select);
+		config(select) ? run(select) : ft_printf(2,
+		"ft_select: terminal configuration error\n");
 	}
 	return (0);
 }
