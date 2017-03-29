@@ -6,11 +6,11 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/20 22:18:00 by tberthie          #+#    #+#              #
-#    Updated: 2017/03/25 20:37:36 by tberthie         ###   ########.fr        #
+#    Updated: 2017/03/29 23:37:03 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-OBJS = $(addsuffix .o, $(addprefix objs/, main))
+OBJS = $(addsuffix .o, $(addprefix objs/, main run print))
 
 NAME = ft_select
 
@@ -21,7 +21,7 @@ objs:
 
 $(NAME): $(OBJS)
 	make -C libft
-	gcc -o $(NAME) $(OBJS) libft/libft.a
+	gcc -o $(NAME) $(OBJS) libft/libft.a -ltermcap
 
 objs/%.o: srcs/%.c
 	gcc -o $@ -c $< -I includes -I libft -Weverything
