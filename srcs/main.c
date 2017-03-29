@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:34:49 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 01:51:15 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 01:55:12 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <curses.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+t_select		*g_select = 0;
 
 int				put_ret(int c)
 {
