@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:57:44 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 00:34:05 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 00:49:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ static void		move(t_select *select, char key)
 	{
 		if (--select->pos < 0)
 			select->pos = (int)ft_parrlen((void**)select->list) - 1;
+	}
+	else if (key == 68)
+	{
+		if (select->pos - select->col >= 0)
+			select->pos -= select->col;
+	}
+	else if (key == 67)
+	{
+		if (select->pos + select->col < (int)ft_parrlen((void**)select->list))
+			select->pos += select->col;
 	}
 	print(select);
 }
