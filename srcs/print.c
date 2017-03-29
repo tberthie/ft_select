@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 23:36:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 00:51:26 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 01:51:45 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,57 @@
 #include "libft.h"
 
 #include <term.h>
+#include <sys/ioctl.h>
 
-static void		collumn(t_select *select)
+static void		collumn(void)
 {
-	select->col = (int)ft_parrlen((void**)select->list);
-//	select->len = max (max strlen + tab // %4 == 0)
-//	error ? select->col = 0
+	struct winsize	ws;
+
+	ioctl(0, TIOCGSIZE, &ws);
+	ft_printf(1, "%d %d\n", ws.ws_row, ws.ws_col);
+	g_select->col = (int)ft_parrlen((void**)g_select->list);
+//	g_select->len = max (max strlen + %4)
+//	window too small ? g_select->col = 0
 }
 
-static void		allign(char *name, t_select *select)
+static void		align(int len)
 {
+	int		diff;
+	int		tabs;
 
+	diff = g_select->len - len;
+	tabs = diff / 4;
+	while (tabs--)
+		ft_printf(1, "\t");
+	if (diff % 4)
+		ft_printf(1, "\t");
+	ft_printf(1, "\t");
 }
 
-void			print(t_select *select)
+void			print(void)
 {
 	int		pos;
 	int		col;
 	t_elem	*elem;
 
 	tputs(tgetstr("cl", 0), 0, put_ret);
-	collumn(select);
+	collumn();
 	pos = 0;
-	while (pos < select->col)
+	while (pos < g_select->col)
 	{
 		col = 0;
-		while (pos + col * select->col < (int)ft_parrlen((void**)select->list))
+		while (pos + col * g_select->col <
+		(int)ft_parrlen((void**)g_select->list))
 		{
-			elem = select->list[pos + col * select->col];
+			elem = g_select->list[pos + col * g_select->col];
 			if (elem->selected)
 				ft_printf(1, SELECTED);
-			if (select->pos == pos + col * select->col)
+			if (g_select->pos == pos + col * g_select->col)
 				ft_printf(1, POSITION);
 			ft_printf(1, "%s"NORMAL, elem->str);
-			if (pos + ++col * select->col <
-			(int)ft_parrlen((void**)select->list))
-				allign(elem->str, select);
+			if (pos + ++col * g_select->col <
+			(int)ft_parrlen((void**)g_select->list))
+				align((int)ft_strlen(elem->str));
 		}
 		ft_printf(1, "\n");
 		pos++;

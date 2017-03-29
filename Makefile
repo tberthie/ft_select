@@ -6,11 +6,11 @@
 #    By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/20 22:18:00 by tberthie          #+#    #+#              #
-#    Updated: 2017/03/29 23:37:03 by tberthie         ###   ########.fr        #
+#    Updated: 2017/03/30 01:37:04 by tberthie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-OBJS = $(addsuffix .o, $(addprefix objs/, main run print))
+OBJS = $(addsuffix .o, $(addprefix objs/, main run print signal))
 
 NAME = ft_select
 

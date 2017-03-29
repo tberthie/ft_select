@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:57:44 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 00:49:49 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 01:51:10 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,86 +17,87 @@
 #include <term.h>
 #include <unistd.h>
 
-static void		selection(t_select *select)
+static void		selection(void)
 {
 	t_elem	*elem;
 
-	elem = select->list[select->pos];
+	elem = g_select->list[g_select->pos];
 	if (elem->selected)
 		elem->selected = 0;
 	else
 		elem->selected = 1;
-	print(select);
+	print();
 }
 
-static void		remove(t_select *select)
+static void		remove(void)
 {
 	t_elem	*elem;
 
-	elem = select->list[select->pos];
-	ft_parrprem((void**)select->list, elem);
-	if (select->pos >= (int)ft_parrlen((void**)select->list))
-		select->pos = (int)ft_parrlen((void**)select->list) - 1;
-	print(select);
+	elem = g_select->list[g_select->pos];
+	ft_parrprem((void**)g_select->list, elem);
+	if (g_select->pos >= (int)ft_parrlen((void**)g_select->list))
+		g_select->pos = (int)ft_parrlen((void**)g_select->list) - 1;
+	print();
 }
 
-static void		move(t_select *select, char key)
+static void		move(char key)
 {
 	if (key == 66)
 	{
-		if (++select->pos == (int)ft_parrlen((void**)select->list))
-			select->pos = 0;
+		if (++g_select->pos == (int)ft_parrlen((void**)g_select->list))
+			g_select->pos = 0;
 	}
 	else if (key == 65)
 	{
-		if (--select->pos < 0)
-			select->pos = (int)ft_parrlen((void**)select->list) - 1;
+		if (--g_select->pos < 0)
+			g_select->pos = (int)ft_parrlen((void**)g_select->list) - 1;
 	}
 	else if (key == 68)
 	{
-		if (select->pos - select->col >= 0)
-			select->pos -= select->col;
+		if (g_select->pos - g_select->col >= 0)
+			g_select->pos -= g_select->col;
 	}
 	else if (key == 67)
 	{
-		if (select->pos + select->col < (int)ft_parrlen((void**)select->list))
-			select->pos += select->col;
+		if (g_select->pos + g_select->col <
+		(int)ft_parrlen((void**)g_select->list))
+			g_select->pos += g_select->col;
 	}
-	print(select);
+	print();
 }
 
-static void		output(t_select *select)
+static void		output(void)
 {
-	while (*select->list)
+	while (*g_select->list)
 	{
-		if ((*select->list)->selected)
-			ft_printf(1, "%s ", (*select->list)->str);
-		select->list++;
+		if ((*g_select->list)->selected)
+			ft_printf(1, "%s ", (*g_select->list)->str);
+		g_select->list++;
 	}
 	ft_printf(1, "\n");
 }
 
-void			run(t_select *select)
+void			run(void)
 {
 	char	buf[4];
 	int		rd;
 
 	rd = 0;
-	print(select);
-	while (ft_parrlen((void**)select->list) &&
+	print();
+	while (ft_parrlen((void**)g_select->list) &&
 	(rd = (int)read(0, buf, 3)) != -1)
 	{
 		buf[rd] = 0;
 		if (buf[0] == 32)
-			selection(select);
+			selection();
 		else if (buf[0] == 10 || (buf[0] == 27 && !buf[1]))
 			break ;
 		else if (buf[0] == 127 || buf[0] == 126)
-			remove(select);
+			remove();
 		else if (buf[0] == 27)
-			move(select, buf[2]);
+			move(buf[2]);
 	}
 	if (rd > 0 && buf[0] == 10)
-		output(select);
-	quit(select);
+		output();
+	quit();
 }
