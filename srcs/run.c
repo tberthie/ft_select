@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:57:44 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 01:51:10 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 02:26:37 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ static void		move(char key)
 	}
 	else if (key == 68)
 	{
-		if (g_select->pos - g_select->col >= 0)
-			g_select->pos -= g_select->col;
+		if (g_select->pos - g_select->row >= 0)
+			g_select->pos -= g_select->row;
 	}
 	else if (key == 67)
 	{
-		if (g_select->pos + g_select->col <
+		if (g_select->pos + g_select->row <
 		(int)ft_parrlen((void**)g_select->list))
-			g_select->pos += g_select->col;
+			g_select->pos += g_select->row;
 	}
 	print();
 }

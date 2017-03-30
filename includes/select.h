@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:35:12 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 01:54:46 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 02:16:49 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ typedef struct		s_select
 
 	int			len;
 	int			col;
-
-	char		pad[4];
+	int			row;
 }					t_select;
 
 extern t_select		*g_select;
