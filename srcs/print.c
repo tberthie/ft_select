@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 23:36:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 14:29:01 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 14:46:27 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ static void		collumn(void)
 		if ((int)ft_strlen(g_select->list[i++]->str) > g_select->len)
 			g_select->len = (int)ft_strlen(g_select->list[i - 1]->str);
 	g_select->len += g_select->len % 4 ? 4 - g_select->len % 4 : 0;
-	// //
 	g_select->col = ws.ws_row ? ((int)ft_parrlen((void**)g_select->list) - 1) /
 	ws.ws_row + 1 : 0;
 	g_select->row = (int)ft_parrlen((void**)g_select->list) / g_select->col +
 	((int)ft_parrlen((void**)g_select->list) % g_select->col ? 1 : 0);
-	// //
 	if (g_select->col * g_select->len + (g_select->col - 1) * 4 > ws.ws_col || 
 	!g_select->col || !g_select->row)
 	{
@@ -46,7 +44,6 @@ static void		collumn(void)
 static void		align(int len)
 {
 	int		diff;
-	int		tabs;
 
 	diff = g_select->len - len;
 	while (diff--)

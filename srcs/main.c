@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:34:49 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 01:55:12 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 15:10:04 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int				main(int ac, char **av)
 	g_select = (t_select*)ft_m(sizeof(t_select));
 	g_select->term = 0;
 	list = (t_elem**)ft_parrnew();
-	signals();
 	if (ac-- < 2)
 		ft_printf(2, "Usage: ft_select [...]\n");
 	else

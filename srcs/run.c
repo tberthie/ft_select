@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:57:44 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 14:23:25 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 15:10:00 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,23 @@ static void		move(char key)
 
 static void		output(void)
 {
+	char		**out;
+	int			i;
+
+	out = (char**)ft_parrnew();
 	while (*g_select->list)
 	{
 		if ((*g_select->list)->selected)
-			ft_printf(1, "%s ", (*g_select->list)->str);
+			ft_parrpush((void***)&out, (*g_select->list)->str);
 		g_select->list++;
 	}
-	ft_printf(1, "\n");
+	i = 0;
+	while (out[i])
+	{
+		out[i + 1] ? ft_printf(1, "%s ", out[i]) : ft_printf(1, out[i]);
+		i++;
+	}
+	ft_parrfree((void**)out);
 }
 
 void			run(void)
@@ -84,9 +94,10 @@ void			run(void)
 
 	rd = 0;
 	print();
-	while (ft_parrlen((void**)g_select->list) &&
-	(rd = (int)read(0, buf, 3)) != -1)
+	while (ft_parrlen((void**)g_select->list))
 	{
+		if ((rd = (int)read(0, buf, 3)) <= 0)
+			continue ;
 		buf[rd] = 0;
 		if (buf[0] == 32)
 			selection();
