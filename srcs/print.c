@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 23:36:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 02:34:17 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 14:29:01 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		collumn(void)
 	while (g_select->list[i])
 		if ((int)ft_strlen(g_select->list[i++]->str) > g_select->len)
 			g_select->len = (int)ft_strlen(g_select->list[i - 1]->str);
-	g_select->len += g_select->len % 4;
+	g_select->len += g_select->len % 4 ? 4 - g_select->len % 4 : 0;
 	// //
 	g_select->col = ws.ws_row ? ((int)ft_parrlen((void**)g_select->list) - 1) /
 	ws.ws_row + 1 : 0;
@@ -49,11 +49,8 @@ static void		align(int len)
 	int		tabs;
 
 	diff = g_select->len - len;
-	tabs = diff / 4;
-	while (tabs--)
-		ft_printf(1, "\t");
-	if (diff % 4)
-		ft_printf(1, "\t");
+	while (diff--)
+		ft_printf(1, " ");
 	ft_printf(1, "\t");
 }
 
@@ -64,7 +61,6 @@ void			print(void)
 	t_elem	*elem;
 
 	tputs(tgetstr("cl", 0), 0, put_ret);
-	tputs(tgetstr("ho", 0), 0, put_ret);
 	collumn();
 	pos = 0;
 	while (pos < g_select->row)
@@ -79,11 +75,10 @@ void			print(void)
 			if (g_select->pos == pos + col * g_select->row)
 				ft_printf(1, POSITION);
 			ft_printf(1, "%s"NORMAL, elem->str);
-			if (pos + ++col * g_select->row <
-			(int)ft_parrlen((void**)g_select->list))
+			if (++col < g_select->col)
 				align((int)ft_strlen(elem->str));
 		}
-		ft_printf(1, "\n");
-		pos++;
+		if (++pos < g_select->row)
+			ft_printf(1, "\n");
 	}
 }
