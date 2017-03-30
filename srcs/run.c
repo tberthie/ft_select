@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:57:44 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 15:10:00 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 15:17:57 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,5 @@ void			run(void)
 	if (rd > 0 && buf[0] == 10)
 		output();
 	quit();
+	signals_reset();
 }

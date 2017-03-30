@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:35:12 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 02:16:49 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/03/30 15:19:03 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char				config(void);
 void				quit(void);
 void				print(void);
 void				signals(void);
+void				signals_reset(void);
 int					put_ret(int c);
 
 #endif
