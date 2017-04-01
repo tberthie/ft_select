@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:57:44 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 20:23:42 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/01 19:02:10 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ void			run(void)
 		else if (buf[0] == 27)
 			move(buf[2]);
 	}
-	tputs(tgetstr("cl", 0), 0, put_ret);
+	quit();
 	if (rd > 0 && buf[0] == 10)
 		output();
-	quit();
 }

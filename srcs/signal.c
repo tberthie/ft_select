@@ -6,17 +6,19 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 15:11:58 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 20:34:36 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/01 19:01:23 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "select.h"
 
+#include "libft.h"
+
+#include <stdlib.h>
 #include <signal.h>
 
 static void		handler(int sig)
 {
-	ft_printf(2, "Signal %d\n", sig);
 	if (sig == SIGWINCH || sig == SIGCONT)
 	{
 		if (sig == SIGCONT)
@@ -26,24 +28,34 @@ static void		handler(int sig)
 	else
 	{
 		quit();
-		exit(0);
+		if (sig != SIGTSTP)
+			exit(0);
 	}
 }
 
 void			signals(void)
 {
-	int			i;
+	struct sigaction	*ac;
+	int					i;
 
+	ac = ft_memalloc(sizeof(struct sigaction));
+	ac->sa_handler = handler;
+	ac->sa_flags = SA_NODEFER;
 	i = 0;
 	while (i < 32)
-		signal(i++, handler);
+		sigaction(i++, ac, 0);
+	free(ac);
 }
 
 void			signals_reset(void)
 {
-	int			i;
+	struct sigaction	*ac;
+	int					i;
 
+	ac = ft_memalloc(sizeof(struct sigaction));
+	ac->sa_handler = SIG_DFL;
 	i = 0;
 	while (i < 32)
-		signal(i++, SIG_DFL);
+		sigaction(i++, ac, 0);
+	free(ac);
 }

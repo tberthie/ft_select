@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:34:49 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 20:34:34 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/01 19:32:51 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ char			config(void)
 	if ((!g_select->term && !(g_select->term = getenv("TERM"))) ||
 	tgetent(0, g_select->term) != 1 || tcgetattr(0, &term) == -1)
 		return (0);
-	term.c_lflag &= (unsigned long)~(ICANON | ECHO);
+	term.c_lflag &= ~(ICANON | ECHO);
+	int		fd;
+	ft_printf(1, "%d\n", (fd=ttyslot()));
+	ft_printf(fd, "Hi\n");
 	tputs(tgetstr("vi", 0), 0, put_ret);
 	return (tcsetattr(0, TCSANOW, &term) == -1) ? 0 : 1;
 }
@@ -47,10 +50,11 @@ void			quit(void)
 	signals_reset();
 	if (tcgetattr(0, &term) == -1)
 		ft_printf(2, "ft_select: failed to restore terminal configuration\n");
-	term.c_lflag = (ICANON | ECHO);
+	term.c_lflag &= (ICANON | ECHO);
 	if (tcsetattr(0, TCSANOW, &term) == -1)
 		ft_printf(2, "ft_select: failed to restore terminal configuration\n");
 	tputs(tgetstr("ve", 0), 0, put_ret);
+	tputs(tgetstr("cl", 0), 0, put_ret);
 }
 
 int				main(int ac, char **av)
