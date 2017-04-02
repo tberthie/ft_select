@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 23:36:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/02 15:20:58 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/02 15:29:58 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void		collumn(void)
 	ws.ws_row + 1 : 0;
 	g_select->row = (int)ft_parrlen((void**)g_select->list) / g_select->col +
 	((int)ft_parrlen((void**)g_select->list) % g_select->col ? 1 : 0);
-	if (g_select->col * g_select->len + (g_select->col - 1) * 4 > ws.ws_col || 
+	if (g_select->col * g_select->len + (g_select->col - 1) * 4 > ws.ws_col ||
 	!g_select->col || !g_select->row)
 	{
 		g_select->row = 0;

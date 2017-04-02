@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:34:49 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/02 15:28:07 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/02 15:29:50 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ static t_elem	**parse(int ac, char **av)
 
 int				main(int ac, char **av)
 {
-
 	g_select = (t_select*)ft_m(sizeof(t_select));
 	g_select->term = 0;
 	if (ac-- < 2)
