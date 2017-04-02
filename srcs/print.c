@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 23:36:42 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/01 19:05:30 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/02 15:20:58 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		collumn(void)
 	!g_select->col || !g_select->row)
 	{
 		g_select->row = 0;
-		ft_printf(1, "ft_select: window too small\n");
+		ft_printf(g_select->fd, "ft_select: window too small\n");
 	}
 }
 
@@ -47,8 +47,8 @@ static void		align(int len)
 
 	diff = g_select->len - len;
 	while (diff--)
-		ft_printf(1, " ");
-	ft_printf(1, "\t");
+		ft_printf(g_select->fd, " ");
+	ft_printf(g_select->fd, "\t");
 }
 
 void			print(void)
@@ -68,14 +68,14 @@ void			print(void)
 		{
 			elem = g_select->list[pos + col * g_select->row];
 			if (elem->selected)
-				ft_printf(1, SELECTED);
+				ft_printf(g_select->fd, SELECTED);
 			if (g_select->pos == pos + col * g_select->row)
-				ft_printf(1, POSITION);
-			ft_printf(1, "%s"NORMAL, elem->str);
+				ft_printf(g_select->fd, POSITION);
+			ft_printf(g_select->fd, "%s"NORMAL, elem->str);
 			if (++col < g_select->col)
 				align((int)ft_strlen(elem->str));
 		}
 		if (++pos < g_select->row)
-			ft_printf(1, "\n");
+			ft_printf(g_select->fd, "\n");
 	}
 }

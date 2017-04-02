@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:35:12 by tberthie          #+#    #+#             */
-/*   Updated: 2017/03/30 15:19:03 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/02 14:57:44 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ typedef struct		s_elem
 
 typedef struct		s_select
 {
-	char		*term;
+	unsigned long	config;
+	char			*term;
+	int				fd;
 
-	t_elem		**list;
-	int			pos;
+	t_elem			**list;
+	int				pos;
 
-	int			len;
-	int			col;
-	int			row;
+	int				len;
+	int				col;
+	int				row;
 }					t_select;
 
 extern t_select		*g_select;

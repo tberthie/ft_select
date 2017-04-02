@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 00:57:44 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/01 19:02:10 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/02 15:17:03 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,6 @@ static void		move(char key)
 	print();
 }
 
-static void		output(void)
-{
-	char		**out;
-	int			i;
-
-	out = (char**)ft_parrnew();
-	while (*g_select->list)
-	{
-		if ((*g_select->list)->selected)
-			ft_parrpush((void***)&out, (*g_select->list)->str);
-		g_select->list++;
-	}
-	i = 0;
-	while (out[i])
-	{
-		out[i + 1] ? ft_printf(1, "%s ", out[i]) : ft_printf(1, out[i]);
-		i++;
-	}
-	ft_parrfree((void**)out);
-}
-
 void			run(void)
 {
 	char	buf[4];
@@ -108,7 +87,4 @@ void			run(void)
 		else if (buf[0] == 27)
 			move(buf[2]);
 	}
-	quit();
-	if (rd > 0 && buf[0] == 10)
-		output();
 }
