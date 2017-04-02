@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:34:49 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/02 15:21:47 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/02 15:28:07 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,52 +60,40 @@ void			quit(void)
 	tputs(tgetstr("cl", 0), 0, put_ret);
 }
 
-static void		output(void)
-{
-	char		**out;
-	int			i;
-
-	out = (char**)ft_parrnew();
-	while (*g_select->list)
-	{
-		if ((*g_select->list)->selected)
-			ft_parrpush((void***)&out, (*g_select->list)->str);
-		g_select->list++;
-	}
-	i = 0;
-	while (out[i])
-	{
-		out[i + 1] ? ft_printf(1, "%s ", out[i]) : ft_printf(1, out[i]);
-		i++;
-	}
-	ft_parrfree((void**)out);
-}
-
-int				main(int ac, char **av)
+static t_elem	**parse(int ac, char **av)
 {
 	t_elem		**list;
 	t_elem		*elem;
 
+	list = (t_elem**)ft_parrnew();
+	while (ac--)
+	{
+		elem = (t_elem*)ft_m(sizeof(t_elem));
+		elem->selected = 0;
+		elem->str = ft_strdup(*++av);
+		ft_parrpush((void***)&list, elem);
+	}
+	return (list);
+}
+
+int				main(int ac, char **av)
+{
+
 	g_select = (t_select*)ft_m(sizeof(t_select));
 	g_select->term = 0;
-	list = (t_elem**)ft_parrnew();
 	if (ac-- < 2)
 		ft_printf(2, "Usage: ft_select [...]\n");
 	else
 	{
-		while (ac--)
-		{
-			elem = (t_elem*)ft_m(sizeof(t_elem));
-			elem->selected = 0;
-			elem->str = ft_strdup(*++av);
-			ft_parrpush((void***)&list, elem);
-		}
-		g_select->list = list;
+		g_select->list = parse(ac, av);
 		g_select->pos = 0;
-		config() ? run() : ft_printf(2,
-		"ft_select: terminal configuration error\n");
-		quit();
-		output();
+		if (config())
+			run();
+		else
+		{
+			quit();
+			ft_printf(2, "ft_select: terminal configuration error\n");
+		}
 	}
 	return (0);
 }

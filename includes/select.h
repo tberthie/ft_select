@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:35:12 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/02 14:57:44 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/02 15:23:50 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct		s_select
 	unsigned long	config;
 	char			*term;
 	int				fd;
+	char			pad[4];
 
 	t_elem			**list;
 	int				pos;
