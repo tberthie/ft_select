@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 20:34:49 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/02 15:29:50 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/02 15:36:26 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char			config(void)
 	tgetent(0, g_select->term) != 1 || tcgetattr(0, &term) == -1)
 		return (0);
 	g_select->config = term.c_lflag;
-	term.c_lflag &= (unsigned long)~(ICANON | ECHO) | ISIG;
+	term.c_lflag &= (unsigned long)~(ICANON | ECHO);
 	if ((fd = open("/dev/tty", O_WRONLY)) < 0)
 		return (0);
 	g_select->fd = fd;
