@@ -28,8 +28,7 @@ static void		handler(int sig)
 	else
 	{
 		quit();
-		if (sig != SIGTSTP)
-			exit(0);
+		exit(0);
 	}
 }
 
@@ -40,10 +39,13 @@ void			signals(void)
 
 	ac = ft_memalloc(sizeof(struct sigaction));
 	ac->sa_handler = handler;
-	ac->sa_flags = 0;
 	i = 1;
 	while (i < 32)
-		sigaction(i++, ac, 0);
+	{
+		if (i != SIGTSTP)
+			sigaction(i, ac, 0);
+		i++;
+	}
 	free(ac);
 }
 
@@ -54,7 +56,6 @@ void			signals_reset(void)
 
 	ac = ft_memalloc(sizeof(struct sigaction));
 	ac->sa_handler = SIG_DFL;
-	ac->sa_flags = 0;
 	i = 1;
 	while (i < 32)
 		sigaction(i++, ac, 0);
