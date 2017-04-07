@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 15:11:58 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/07 13:12:23 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/07 13:26:22 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <sys/ioctl.h>
+#include <unistd.h>
 
 static void		sigtstp(void)
 {
@@ -43,11 +44,11 @@ static void		handler(int sig)
 	else
 	{
 		quit();
-		signal(SIGCONT, handler);
-		if (sig != SIGTSTP)
+		if (sig != SIGTSTP || !isatty(1))
 			exit(0);
 		else
 		{
+			signal(SIGCONT, handler);
 			signal(SIGTSTP, SIG_DFL);
 			sigtstp();
 		}
