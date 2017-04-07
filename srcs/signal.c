@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 15:11:58 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/02 15:39:43 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/07 12:48:20 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,23 @@
 
 #include "libft.h"
 
+#include <term.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <sys/ioctl.h>
+
+static void		sigtstp(void)
+{
+	struct termios	term;
+	char			sim[2];
+
+	if (tcgetattr(0, &term) != -1)
+	{
+		sim[0] = (char)term.c_cc[VSUSP];
+		sim[1] = 0;
+		ioctl(0, TIOCSTI, sim);
+	}
+}
 
 static void		handler(int sig)
 {
@@ -28,35 +43,31 @@ static void		handler(int sig)
 	else
 	{
 		quit();
+		signal(SIGCONT, handler);
 		if (sig != SIGTSTP)
 			exit(0);
+		else
+		{
+			signal(SIGTSTP, SIG_DFL);
+			sigtstp();
+		}
 	}
 }
 
 void			signals(void)
 {
-	struct sigaction	*ac;
 	int					i;
 
-	ac = ft_memalloc(sizeof(struct sigaction));
-	ac->sa_handler = handler;
-	ac->sa_flags = 0;
 	i = 1;
 	while (i < 32)
-		sigaction(i++, ac, 0);
-	free(ac);
+		signal(i++, handler);
 }
 
 void			signals_reset(void)
 {
-	struct sigaction	*ac;
 	int					i;
 
-	ac = ft_memalloc(sizeof(struct sigaction));
-	ac->sa_handler = SIG_DFL;
-	ac->sa_flags = 0;
 	i = 1;
 	while (i < 32)
-		sigaction(i++, ac, 0);
-	free(ac);
+		signal(i++, handler);
 }
