@@ -6,7 +6,7 @@
 /*   By: tberthie <tberthie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 15:11:58 by tberthie          #+#    #+#             */
-/*   Updated: 2017/04/07 13:26:22 by tberthie         ###   ########.fr       */
+/*   Updated: 2017/04/15 13:27:41 by tberthie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ void			signals_reset(void)
 
 	i = 1;
 	while (i < 32)
-		signal(i++, handler);
+		signal(i++, SIG_DFL);
 }
